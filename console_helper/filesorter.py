@@ -1,10 +1,10 @@
 import shutil
 from pathlib import Path
-from .file_copies_deleter import copies_deleter
+from file_copies_deleter import copies_deleter
 
-from .normaliser import normalise
+from normaliser import normalise
 
-from .colors import G, R, N, Y
+from colors import G, R, N, Y
 
 
 EXT_FOLDER = {

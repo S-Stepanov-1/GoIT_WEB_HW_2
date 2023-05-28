@@ -4,7 +4,7 @@ import hashlib
 import time
 from os.path import join, getsize
 
-from .colors import G, R, N, Y
+from colors import G, R, N, Y
 
 # Getting an absolut path to directory with files
 # def get_path_dir():

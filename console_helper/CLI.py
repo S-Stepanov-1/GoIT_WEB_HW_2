@@ -19,12 +19,12 @@ from pygments.formatters import TerminalFormatter
 from bs4 import BeautifulSoup
 import requests
 
-from .addressbook import AddressBook
-from .notebook import Notebook
-from .currenсy import CurrencyList
-from .serializer import PickleStorage
-from .filesorter import sort_folder
-from .colors import *
+from addressbook import AddressBook
+from notebook import Notebook
+from currenсy import CurrencyList
+from serializer import PickleStorage
+from filesorter import sort_folder
+from colors import *
 
 from abc import ABC, abstractmethod
 
@@ -67,7 +67,7 @@ def good_bye(*args):
     os.system("cls" if os.name == "nt" else "clear")
     save(CONTACT_FILE)
     save_notes(NOTES_FILE)
-    print("See you later.\nDotn't warry, your data was saved.")
+    print("See you later.\nDon't worry, your data was saved.")
     return "Good bye!"
 
 
@@ -378,7 +378,7 @@ def change_name(*args):
 
     result = contacts.update_name(args[0], args[1])
     if result:
-        return f"I updatw name {args[0]} -> {args[1]}"
+        return f"I updated name {args[0]} -> {args[1]}"
     return f"{R}No contact {args[0]} in AddressBook.{N}"
 
 
@@ -708,10 +708,10 @@ def get_weather(*args):
 
 # =========================================================================== #
 def help_commands(*args):
-    """Функція показує перелік всіх команд."""
+    """The function shows how to work with this app"""
 
-    PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
-    README_PATH = os.path.join(PACKAGE_ROOT, "../README.md")
+    current_path = os.getcwd()
+    README_PATH = os.path.join(current_path, "README.MD")
 
     if not os.path.exists(README_PATH):
         return R + f"File {README_PATH} not found." + N
@@ -758,9 +758,9 @@ COMMANDS = {
     "change name": change_name,
     "save": save,
     "load": load,
-    # --- Валюта ---
+    # --- Currency ---
     "currency": get_currency,
-    # --- Погода ---
+    # --- Weather ---
     "weather in": get_weather,
     # --- Manage notes ---
     "add note": add_note,
@@ -774,7 +774,7 @@ COMMANDS = {
     "remove tag": remove_tag,
     # --- Sorting folder commnad ---
     "sort folder": sort_folder_cli,
-    # --- Googd bye commnad ---
+    # --- Good bye commands ---
     "good bye": good_bye,
     "close": good_bye,
     "exit": good_bye,
@@ -790,11 +790,6 @@ class CommandCompleter(Completer):
             matches = [c for c in COMMANDS if c.startswith(command)]
             for m in matches:
                 yield Completion(m, display=m, start_position=-len(command))
-        # else:
-        #     matches = [c for c in COMMANDS if c.startswith(command)]
-        #     for m in matches:
-        #         usage = COMMAND_USAGE.get(m, "")
-        #         yield Completion(usage, display=usage)
 
 
 session = PromptSession(completer=CommandCompleter(), complete_while_typing=True)
@@ -809,7 +804,7 @@ pattern = re.compile(
 
 
 def get_handler(*args):
-    """Функція викликає відповідний handler."""
+    """The function calls the according handler"""
 
     return COMMANDS.get(args[0], undefined)
 
@@ -877,8 +872,6 @@ def main():
         if response == "Good bye!":
             return None
 
-
-# ================================ main program ============================= #
 
 if __name__ == "__main__":
     main()
